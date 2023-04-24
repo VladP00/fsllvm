@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RootNamespace>FSharp.llvm</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Utility.fs" />
+        <Compile Include="Opcode.fs" />
+        <Compile Include="DLLStorageClass.fs" />
+        <Compile Include="ValueKind.fs" />
+        <Compile Include="Fcmp.fs" />
+        <Compile Include="Icmp.fs" />
+        <Compile Include="Types.fs" />
+        <Compile Include="IntegerTypes.fs" />
+        <Compile Include="RealTypes.fs" />
+        <Compile Include="FunctionTypes.fs" />
+        <Compile Include="StructTypes.fs" />
+        <Compile Include="PointerTypes.fs" />
+        <Compile Include="OtherTypes.fs" />
+        <Compile Include="Values.fs" />
+        <Compile Include="Uses.fs" />
+        <Compile Include="Users.fs" />
+        <Compile Include="Constant.fs" />
+        <Compile Include="Intrinsics.fs" />
+        <Compile Include="Params.fs" />
+        <Compile Include="Functions.fs" />
+        <Compile Include="Builder.fs" />
+        <Compile Include="Terminators.fs" />
+        <Compile Include="PhiNode.fs" />
+        <Compile Include="Branches.fs" />
+        <Compile Include="Instructions.fs" />
+        <Compile Include="MetaData.fs" />
+        <Compile Include="Context.fs" />
+        <Compile Include="Module.fs" />
+        <Compile Include="ScalarConstant.fs" />
+        <Compile Include="CompositeConstant.fs" />
+        <Compile Include="ConstantExpressions.fs" />
+        <Compile Include="GlobalVariables.fs" />
+        <Compile Include="BasicBlocks.fs" />
+        <Compile Include="Target.fs" />
+        <Compile Include="ABIInfo.fs" />
+        <ClCompile Include="abi_info.c" />
+        <ClInclude Include="abi_info.h" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
+      <PackageReference Include="LLVMSharp" Version="15.0.0-beta1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="include\**" />
+    </ItemGroup>
+
+</Project>
