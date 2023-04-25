@@ -14,6 +14,14 @@ let inline cast<'t, 'd when 't: unmanaged and 'd: unmanaged> ptr =
     ptr
     |> NativePtr.toNativeInt<'t>
     |> NativePtr.ofNativeInt<'d>
+[<return: Struct>]
+let inline (|NonNull|_|) self =
+    if isNullPtr self then ValueNone
+    else ValueSome self
+[<return: Struct>]
+let inline (|Null|_|) self =
+    if isNullPtr self then ValueSome()
+    else ValueNone
 let inline (!*) ptr = NativePtr.read ptr
 let inline ( *<-) ptr value = NativePtr.write ptr value
 let inline (+!) ptr value = NativePtr.add ptr value

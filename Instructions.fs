@@ -4,6 +4,19 @@ module FSharp.llvm.Instructions
 open LLVMSharp.Interop
 open Microsoft.FSharp.NativeInterop
 
+let instrParent instruction =
+    { llbasicblock = LLVM.GetInstructionParent(instruction.llvalue) }
+
+let firstInstruction basicBlock =
+    match LLVM.GetFirstInstruction(basicBlock.llbasicblock) with
+    | NonNull p -> ValueSome ({ llvalue = p })
+    | _ -> ValueNone
+let lastInstruction basicBlock =
+    match LLVM.GetLastInstruction(basicBlock.llbasicblock) with
+    | NonNull p -> ValueSome ({ llvalue = p })
+    | _ -> ValueNone
+    
+
 let hasMetadata instruction =
     LLVM.HasMetadata (instruction.llvalue) <> 0
 

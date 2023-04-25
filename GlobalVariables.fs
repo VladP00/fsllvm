@@ -18,7 +18,7 @@ let declareGlobal lltype name llmodule =
                 LLVM.AddGlobal(llmodule, lltype, name) }
 
     )
-let declareQualifedGlobal lltype name addressSpace llmodule =
+let declareQualifiedGlobal lltype name addressSpace llmodule =
     name
     |> withUTF8 (fun name ->
         let llmodule = llmodule.llmodule

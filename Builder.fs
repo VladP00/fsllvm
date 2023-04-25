@@ -16,7 +16,9 @@ let builderAt context position =
     b 
 let buildAlloca lltype (name: string voption) builder =
     match name with
+    
     | ValueSome name ->
+       
         { llvalue = builder.llbuilder.BuildAlloca(lltype.lltype, name) }
     | ValueNone ->
         { llvalue = builder.llbuilder.BuildAlloca(lltype.lltype) }
@@ -26,6 +28,15 @@ let buildArrayAlloca lltype size (name: string voption) builder =
         { llvalue = builder.llbuilder.BuildArrayAlloca(lltype.lltype, size.llvalue, name) }
     | ValueNone ->
         { llvalue = builder.llbuilder.BuildArrayAlloca(lltype.lltype, size.llvalue) }
+let buildLoad value name builder =
+    name
+    |> ValueOption.map (fun name ->
+        name  
+        |> withUTF8 (fun name ->
+            { llvalue = LLVM.BuildLoad2(builder.llbuilder, value.llvalue.TypeOf.ElementType, value.llvalue, name) })
+    )
+    |> ValueOption.defaultWith (fun () ->
+         { llvalue = LLVM.BuildLoad2(builder.llbuilder, value.llvalue.TypeOf, value.llvalue, NativePtr.nullPtr) })
 let buildStore value pointer builder =
     { llvalue = builder.llbuilder.BuildStore(value.llvalue, pointer.llvalue) }
 let buildTrunc value lltype (name: string voption) builder =
@@ -379,9 +390,6 @@ let buildCallB fn args name builder =
         | ValueNone ->
             { llvalue = LLVM.BuildCall2(builder.llbuilder, (llvmTypeOf fn).lltype, fn.llvalue, ptr, uint32 count, NativePtr.nullPtr) }
     )
-let buildNoop llmodule builder =
-    (*let id = lookupID "llvm.donothing"
-    
-    let fn = getIntrinsicDeclaration llmodule id [||]
-    builder |> buildCall (llvmTypeOf fn) fn [||] ValueNone*)
+let buildNoop builder =
+
     Unchecked.defaultof<llvalue>

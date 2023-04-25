@@ -13,6 +13,10 @@ let basicBlocks llfunction =
 let entryBlock llfunction =
     { llbasicblock = LLVM.GetEntryBasicBlock llfunction.llvalue }
 
+let insertionBlock llbuilder =
+    {
+        llbasicblock = LLVM.GetInsertBlock llbuilder.llbuilder 
+    }
 let deleteBlock llblock =
     LLVM.DeleteBasicBlock llblock.llbasicblock
 
