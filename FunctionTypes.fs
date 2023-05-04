@@ -13,7 +13,6 @@ let inline private _functionType returnType (paramTypes: lltype array) isVarArg 
         returnValue.lltype <- LLVM.FunctionType(returnType.lltype, paramTypes, uint32 count, isVarArg)
         
     end
-    eprintfn "%A" (returnValue.lltype.PrintToString())
     returnValue
 let functionType returnType paramTypes =
     _functionType returnType paramTypes false

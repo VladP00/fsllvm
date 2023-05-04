@@ -37,10 +37,10 @@ let defineFunctionWithParamNames context name returnType paramNames paramTypes l
         let _ = LLVM.AppendBasicBlockInContext(context.llcontext, fn, cast<_, sbyte> entry)
         let fn = { llvalue = fn }
         
-        eprintfn "typeof %s = %s" (fn.llvalue.Name) ({ lltype = LLVM.GlobalGetValueType(fn.llvalue) }.lltype.PrintToString())
+        //eprintfn "typeof %s = %s" (fn.llvalue.Name) ({ lltype = LLVM.GlobalGetValueType(fn.llvalue) }.lltype.PrintToString())
         
         Array.iteri (fun i name -> setValueName name (param fn i)) paramNames
-        eprintfn "typeof %s = %s" (fn.llvalue.Name) ({ lltype = LLVM.GlobalGetValueType(fn.llvalue) }.lltype.PrintToString())
+        //eprintfn "typeof %s = %s" (fn.llvalue.Name) ({ lltype = LLVM.GlobalGetValueType(fn.llvalue) }.lltype.PrintToString())
         fn 
     )
     
@@ -112,3 +112,5 @@ let lookupFunction name llmodule =
         else ValueSome { llvalue = ptr }
     )
 
+let globalParent value =
+   { llmodule = LLVM.GetGlobalParent(value.llvalue ) }

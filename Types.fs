@@ -6,11 +6,11 @@ type llvalue = { mutable llvalue: LLVMValueRef }
 [<Struct>]
 type lltype = { mutable lltype: LLVMTypeRef }
 [<Struct>]
-type llcontext = internal { mutable llcontext: LLVMContextRef }
+type llcontext = { mutable llcontext: LLVMContextRef }
 [<Struct>]
 type llbuilder = internal { mutable llbuilder: LLVMBuilderRef }
 [<Struct>]
-type llmodule = internal { mutable llmodule: LLVMModuleRef }
+type llmodule = { mutable llmodule: LLVMModuleRef }
 [<Struct>]
 type llbasicblock = internal { mutable llbasicblock: LLVMBasicBlockRef }
 [<Struct>]

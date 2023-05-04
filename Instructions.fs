@@ -11,6 +11,7 @@ let firstInstruction basicBlock =
     match LLVM.GetFirstInstruction(basicBlock.llbasicblock) with
     | NonNull p -> ValueSome ({ llvalue = p })
     | _ -> ValueNone
+    
 let lastInstruction basicBlock =
     match LLVM.GetLastInstruction(basicBlock.llbasicblock) with
     | NonNull p -> ValueSome ({ llvalue = p })

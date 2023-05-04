@@ -9,13 +9,13 @@ let subTypes lltype: lltype[] =
         LLVM.GetSubtypes(lltype.lltype, opaqueTypes)
     )
 let arrayType elementType count =
-    { lltype = LLVM.ArrayType(elementType.lltype, uint32 count) }
+    { lltype = LLVM.ArrayType(elementType.lltype, count) }
 let pointerType pointeeType =
     { lltype = LLVM.PointerType(pointeeType.lltype, 0u) }
 let qualifiedPointerType pointeeType addressSpace =
-    { lltype = LLVM.PointerType(pointeeType.lltype, uint32 addressSpace) }
+    { lltype = LLVM.PointerType(pointeeType.lltype, addressSpace) }
 let vectorType primitiveType count =
-    { lltype = LLVM.VectorType(primitiveType.lltype, uint32 count) }
+    { lltype = LLVM.VectorType(primitiveType.lltype,  count) }
 let elementType lltype =
     { lltype = LLVM.GetElementType(lltype.lltype) }
 let arrayLength arrayType =

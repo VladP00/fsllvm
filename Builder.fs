@@ -10,6 +10,13 @@ let positionBuilder position builder =
     match position with
     | At_end basicBlock -> LLVM.PositionBuilderAtEnd(builder.llbuilder, basicBlock.llbasicblock)
     | Before value -> LLVM.PositionBuilderBefore(builder.llbuilder, value.llvalue)
+let positionBuilderRev position builder =
+    match position with
+    | At_start llfunction -> LLVM.PositionBuilderBefore(builder.llbuilder, LLVM.GetFirstInstruction(LLVM.GetFirstBasicBlock(llfunction.llvalue)))
+    | After basicBlock ->
+        let nextBlock = LLVM.GetNextBasicBlock(basicBlock.llbasicblock)
+        let firstInstr = LLVM.GetFirstInstruction nextBlock
+        LLVM.PositionBuilderBefore(builder.llbuilder, firstInstr)
 let builderAt context position =
     let b = builder context in
     positionBuilder position b
@@ -130,7 +137,7 @@ let buildCall functionType functionValue (parameters: llvalue[]) (name: string v
         let parameters = parameters |> NativePtr.toNativeInt |> NativePtr.ofNativeInt<nativeptr<LLVMOpaqueValue>>
         name
         |> withUTF8 (fun name ->
-            eprintfn "Objective reached"
+           
             if p.Length = 0 then 
                 returnValue <- { llvalue = LLVM.BuildCall2(builder.llbuilder, functionType.lltype, functionValue.llvalue, NativePtr.nullPtr, uint32 p.Length, name) }
             else
@@ -393,3 +400,24 @@ let buildCallB fn args name builder =
 let buildNoop builder =
 
     Unchecked.defaultof<llvalue>
+
+let buildGCRoot rootPtr metadata builder =
+    let fn = gcRoot ({ llmodule = builder.llbuilder.InsertBlock.Parent.GlobalParent } )
+    let context = { llcontext = (builder.llbuilder.InsertBlock.Parent.GlobalParent.Context) }
+    let ptr = pointerType(i8Type context)
+    let ptrptr = pointerType ptr 
+    builder |> buildCall (functionType (voidType context) [|ptrptr; ptr|]) fn [|rootPtr; metadata|] ValueNone
+
+let buildGCRead object interiorPtr name builder =
+    let fn = gcRead ({ llmodule = builder.llbuilder.InsertBlock.Parent.GlobalParent } )
+    let context = { llcontext = (builder.llbuilder.InsertBlock.Parent.GlobalParent.Context) }
+    let ptr = pointerType(i8Type context)
+    let ptrptr = pointerType ptr
+    builder |> buildCall (functionType (ptr) [|ptr; ptrptr|]) fn [|object; interiorPtr|] name
+
+let buildGCWrite value object interiorPtr builder =
+    let fn = gcWrite ({ llmodule = builder.llbuilder.InsertBlock.Parent.GlobalParent } )
+    let context = { llcontext = (builder.llbuilder.InsertBlock.Parent.GlobalParent.Context) }
+    let ptr = pointerType(i8Type context)
+    let ptrptr = pointerType ptr
+    builder |> buildCall (functionType (voidType context) [|ptr; ptr; ptrptr|]) fn [|value; object; interiorPtr|] ValueNone

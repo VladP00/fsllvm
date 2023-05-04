@@ -12,7 +12,8 @@ let basicBlocks llfunction =
 
 let entryBlock llfunction =
     { llbasicblock = LLVM.GetEntryBasicBlock llfunction.llvalue }
-
+let lastBlock llfunction =
+    { llbasicblock = LLVM.GetLastBasicBlock llfunction.llvalue }
 let insertionBlock llbuilder =
     {
         llbasicblock = LLVM.GetInsertBlock llbuilder.llbuilder 

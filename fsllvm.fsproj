@@ -41,6 +41,8 @@
         <Compile Include="GlobalVariables.fs" />
         <Compile Include="BasicBlocks.fs" />
         <Compile Include="Target.fs" />
+        <Compile Include="Globals.fs" />
+        <Compile Include="CallingConvention.fs" />
         <Compile Include="ABIInfo.fs" />
         <ClCompile Include="abi_info.c" />
         <ClInclude Include="abi_info.h" />
