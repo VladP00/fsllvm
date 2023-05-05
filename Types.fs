@@ -2,21 +2,23 @@
 module FSharp.llvm.Types
 open LLVMSharp.Interop
 [<Struct>]
-type llvalue = { mutable llvalue: LLVMValueRef }
+type llvalue = internal { mutable llvalue: LLVMValueRef }
 [<Struct>]
-type lltype = { mutable lltype: LLVMTypeRef }
+type lltype = internal { mutable lltype: LLVMTypeRef }
 [<Struct>]
-type llcontext = { mutable llcontext: LLVMContextRef }
+type llcontext = internal { mutable llcontext: LLVMContextRef }
 [<Struct>]
 type llbuilder = internal { mutable llbuilder: LLVMBuilderRef }
 [<Struct>]
-type llmodule = { mutable llmodule: LLVMModuleRef }
+type llmodule = internal { mutable llmodule: LLVMModuleRef }
 [<Struct>]
 type llbasicblock = internal { mutable llbasicblock: LLVMBasicBlockRef }
 [<Struct>]
 type lltargetdata = internal { mutable lltargetdata: LLVMTargetDataRef }
 [<Struct>]
 type lluse = internal { mutable lluse: LLVMUseRef }
+[<Struct>]
+type llpassmanager = internal { mutable passmanager: LLVMPassManagerRef }
 [<Struct>]
 type llpos<'a, 'b> =
     | At_end of first: 'a

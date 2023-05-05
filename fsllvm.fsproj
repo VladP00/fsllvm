@@ -43,7 +43,10 @@
         <Compile Include="Target.fs" />
         <Compile Include="Globals.fs" />
         <Compile Include="CallingConvention.fs" />
+        <Compile Include="DataLayout.fs" />
+        <Compile Include="PassManager.fs" />
         <Compile Include="ABIInfo.fs" />
+        <Compile Include="Llvm.fs" />
         <ClCompile Include="abi_info.c" />
         <ClInclude Include="abi_info.h" />
     </ItemGroup>

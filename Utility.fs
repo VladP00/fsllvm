@@ -4,6 +4,7 @@ open System
 open FSharp.NativeInterop
 open System.Text
 open System.Collections.Generic
+open LLVMSharp.Interop
 
 let inline ptrToOption ([<InlineIfLambda>] ctor) ptr =
     if (NativePtr.isNullPtr ptr) then ValueNone
@@ -94,5 +95,4 @@ let None = ValueNone
 let inline (|Some|_|) (x: _ voption) = if x.IsSome then x else ValueNone
 [<return: Struct>]
 let inline (|None|_|) (x: _ voption) = if x.IsNone then ValueSome() else ValueNone
-
 

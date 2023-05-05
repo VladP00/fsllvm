@@ -55,8 +55,8 @@ let functionPointerSize = makeGetter get_function_pointer_size
 let pointerAlignment = makeGetter get_alignment_of_pointer
 let functionPointerAlignment = makeGetter get_alignment_of_function_pointer
 let longDoubleSize = makeGetter get_long_double_size
-let alignmentOfInteger width = get_alignment_of_integer width
-let alignmentOfFloatingPoint width = get_alignment_of_fp width 
+let alignmentOfInteger width = get_alignment_of_integer width * 8un 
+let alignmentOfFloatingPoint width = get_alignment_of_fp width * 8un 
 
         
     
