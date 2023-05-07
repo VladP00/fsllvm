@@ -4,6 +4,12 @@
         <TargetFramework>net7.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <RootNamespace>FSharp.llvm</RootNamespace>
+        <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <PlatformTarget>ARM64</PlatformTarget>
+      <DebugType>full</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -49,6 +55,8 @@
         <Compile Include="Llvm.fs" />
         <ClCompile Include="abi_info.c" />
         <ClInclude Include="abi_info.h" />
+        <ClCompile Include="llvmc.cpp" />
+        <Content Include="build_llvmc.sh" />
     </ItemGroup>
 
     <ItemGroup>
@@ -58,6 +66,10 @@
 
     <ItemGroup>
       <EmbeddedResource Remove="include\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kaleidoscope\Unix\Unix.fsproj" />
     </ItemGroup>
 
 </Project>

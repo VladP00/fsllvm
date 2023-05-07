@@ -14,3 +14,6 @@ let declareGlobal lltype name llmodule =
         else
             { llvalue = LLVM.AddGlobal(llmodule.llmodule, lltype.lltype, name) } 
     )
+
+let globalValueType value =
+    { lltype = LLVM.GlobalGetValueType value.llvalue }

@@ -1,6 +1,7 @@
 [<Microsoft.FSharp.Core.AutoOpen>]
 module FSharp.llvm.Types
 open LLVMSharp.Interop
+open Microsoft.FSharp.NativeInterop
 [<Struct>]
 type llvalue = internal { mutable llvalue: LLVMValueRef }
 [<Struct>]
@@ -18,7 +19,20 @@ type lltargetdata = internal { mutable lltargetdata: LLVMTargetDataRef }
 [<Struct>]
 type lluse = internal { mutable lluse: LLVMUseRef }
 [<Struct>]
-type llpassmanager = internal { mutable passmanager: LLVMPassManagerRef }
+type llpassbuilder = { mutable address: nativeint }
+[<Struct>]
+type llfunctionpassmanager = { mutable address: nativeint }
+[<Struct>]
+type llmodulepassmanager = { mutable address: nativeint }
+[<Struct>]
+type llmoduleanalysismanager = { mutable address: nativeint }
+[<Struct>]
+type llLoopAnalysisManager = { mutable address: nativeint }
+[<Struct>]
+type llCGSCCAnalysisManager = { mutable address: nativeint }
+[<Struct>]
+type llFunctionAnalysisManager = { mutable address: nativeint }
+
 [<Struct>]
 type llpos<'a, 'b> =
     | At_end of first: 'a
