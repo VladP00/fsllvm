@@ -152,7 +152,7 @@ let buildEmptyPhi lltype (name: string voption) builder =
     let name = defaultValueArg name ""
     { llvalue = builder.llbuilder.BuildPhi(lltype.lltype, name) }
 
-let buildGEP ty pointer (indices: lltype[]) (name: string voption) builder =
+let buildGEP ty pointer (indices: llvalue[]) (name: string voption) builder =
     let length = indices.Length
     use indices = fixed indices
     let indices =
@@ -400,7 +400,21 @@ let buildCallB fn args name builder =
 let buildNoop builder =
 
     Unchecked.defaultof<llvalue>
+    
+let buildSizeOf context lltype  builder =
 
+    let ``%type`` = lltype
+    let ``%type*``= pointerType ``%type``
+    let ``%type.sizeof.ptr`` = builder |> buildGEP ``%type`` (constPointerNull ``%type*``) [|constInt (i64Type context) 1UL false|] (ValueSome "type.sizeof.ptr")
+    builder |> buildPtrToInt ``%type.sizeof.ptr`` (i64Type context)  (ValueSome "type.sizeof")
+    
+    (*llvm:
+            %type.sizeof.ptr = getelementptr %type* null, i64 1 
+            %type.sizeof = ptrtoint %type* %type.sizeof.ptr to i64
+    *)
+
+
+[<Obsolete("LLVM uses gc.safepoint for garbage collection instead of gc.root now.")>]
 let buildGCRoot rootPtr metadata builder =
     let fn = gcRoot ({ llmodule = builder.llbuilder.InsertBlock.Parent.GlobalParent } )
     let context = { llcontext = (builder.llbuilder.InsertBlock.Parent.GlobalParent.Context) }
