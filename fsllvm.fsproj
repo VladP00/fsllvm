@@ -33,6 +33,7 @@
         <Compile Include="Intrinsics.fs" />
         <Compile Include="Params.fs" />
         <Compile Include="Functions.fs" />
+        <Compile Include="ScalarConstant.fs" />
         <Compile Include="Builder.fs" />
         <Compile Include="Terminators.fs" />
         <Compile Include="PhiNode.fs" />
@@ -41,7 +42,6 @@
         <Compile Include="MetaData.fs" />
         <Compile Include="Context.fs" />
         <Compile Include="Module.fs" />
-        <Compile Include="ScalarConstant.fs" />
         <Compile Include="CompositeConstant.fs" />
         <Compile Include="ConstantExpressions.fs" />
         <Compile Include="GlobalVariables.fs" />
