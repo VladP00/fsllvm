@@ -6,6 +6,10 @@ open System.Text
 open System.Collections.Generic
 open LLVMSharp.Interop
 
+(*
+
+Comment*)
+
 let inline ptrToOption ([<InlineIfLambda>] ctor) ptr =
     if (NativePtr.isNullPtr ptr) then ValueNone
     else
