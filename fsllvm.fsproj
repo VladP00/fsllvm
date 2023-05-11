@@ -53,6 +53,8 @@
         <Compile Include="PassManager.fs" />
         <Compile Include="ABIInfo.fs" />
         <Compile Include="Llvm.fs" />
+        <Compile Include="StackMap.fs" />
+        <ClCompile Include="stack_walker.c" />
         <ClCompile Include="abi_info.c" />
         <ClInclude Include="abi_info.h" />
         <ClCompile Include="llvmc.cpp" />

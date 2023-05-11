@@ -33,8 +33,8 @@ let inline pinningAs<'t, 'out, 'returnType when 't: unmanaged and 'out: unmanage
     let ptr = cast<_, 'out> ptr 
     f ptr count
 let rec strlen acc = function
-    | ptr when NativePtr.read ptr = 0uy -> acc
-    | ptr -> strlen (acc + 1) (NativePtr.add ptr 1)
+    | ptr when !*ptr = 0uy -> acc
+    | ptr -> strlen (acc + 1) (ptr +! 1)
 let inline initUnsafe<'t, 'd when 't: unmanaged and 'd: unmanaged> count ([<InlineIfLambda>] f: nativeptr<'t> -> int -> unit) =
     let array = Array.zeroCreate<'d> count
     begin
